@@ -1,0 +1,17 @@
+.invisible{
+    background-color:rgba(0, 0, 0, 0);
+   
+    border: none;
+    outline:none;
+    height:30px;
+    transition:height 1s;
+    -webkit-transition:height 1s;
+}
+.editor { 
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+table.editor td,table.editor th {
+    border: 1px solid black;
+  }
+  

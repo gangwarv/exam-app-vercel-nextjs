@@ -1,0 +1,140 @@
+/* .w3-theme-l5 {color:#000 !important; background-color:#f0f4f8 !important}
+.w3-theme-l4 {color:#000 !important; background-color:#ced9e6 !important}
+.w3-theme-l3 {color:#000 !important; background-color:#9db4ce !important}
+.w3-theme-l2 {color:#fff !important; background-color:#6c8eb5 !important}
+.w3-theme-l1 {color:#fff !important; background-color:#486a90 !important}
+.w3-theme-d1 {color:#fff !important; background-color:#2b3f55 !important}
+.w3-theme-d2 {color:#fff !important; background-color:#26384c !important}
+.w3-theme-d3 {color:#fff !important; background-color:#213142 !important}
+.w3-theme-d4 {color:#fff !important; background-color:#1d2a39 !important}
+.w3-theme-d5 {color:#fff !important; background-color:#18232f !important}
+
+.w3-theme-light {color:#000 !important; background-color:#f0f4f8 !important}
+.w3-theme-dark {color:#fff !important; background-color:#18232f !important}
+.w3-theme-action {color:#fff !important; background-color:#18232f !important}
+
+.w3-theme {color:#fff !important; background-color:#30465f !important}
+.w3-text-theme {color:#30465f !important}
+.w3-border-theme {border-color:#30465f !important}
+
+.w3-hover-theme:hover {color:#fff !important; background-color:#30465f !important}
+.w3-hover-text-theme:hover {color:#30465f !important}
+.w3-hover-border-theme:hover {border-color:#30465f !important}
+
+*/
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Roboto", sans-serif;
+}
+
+nav *,
+nav *:before,
+nav *:after {
+  box-sizing: unset !important;
+}
+nav {
+  box-shadow: 0 4px 8px 0 rgba(202, 74, 74, 0.2);
+}
+
+/* Mobile */
+/* 
+@media only screen and (max-width: 767px) {
+  [class*="mobile hidden"],
+  [class*="tablet only"]:not(.mobile),
+  [class*="computer only"]:not(.mobile),
+  [class*="large monitor only"]:not(.mobile),
+  [class*="widescreen monitor only"]:not(.mobile),
+  [class*="or lower hidden"] {
+    display: none !important;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  [class*="mobile only"]:not(.tablet),
+  [class*="tablet hidden"],
+  [class*="computer only"]:not(.tablet),
+  [class*="large monitor only"]:not(.tablet),
+  [class*="widescreen monitor only"]:not(.tablet),
+  [class*="or lower hidden"]:not(.mobile) {
+    display: none !important;
+  }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  [class*="mobile only"]:not(.computer),
+  [class*="tablet only"]:not(.computer),
+  [class*="computer hidden"],
+  [class*="large monitor only"]:not(.computer),
+  [class*="widescreen monitor only"]:not(.computer),
+  [class*="or lower hidden"]:not(.tablet):not(.mobile) {
+    display: none !important;
+  }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1919px) {
+  [class*="mobile only"]:not([class*="large monitor"]),
+  [class*="tablet only"]:not([class*="large monitor"]),
+  [class*="computer only"]:not([class*="large monitor"]),
+  [class*="large monitor hidden"],
+  [class*="widescreen monitor only"]:not([class*="large monitor"]),
+  [class*="or lower hidden"]:not(.computer):not(.tablet):not(.mobile) {
+    display: none !important;
+  }
+}
+
+@media only screen and (min-width: 1920px) {
+  [class*="mobile only"]:not([class*="widescreen monitor"]),
+  [class*="tablet only"]:not([class*="widescreen monitor"]),
+  [class*="computer only"]:not([class*="widescreen monitor"]),
+  [class*="large monitor only"]:not([class*="widescreen monitor"]),
+  [class*="widescreen monitor hidden"],
+  [class*="widescreen monitor or lower hidden"] {
+    display: none !important;
+  }
+} */
+/* .ui.menu{
+  border-radius: unset !important;
+}
+.ui.menu .item:before {
+  width: 0px !important;
+}
+
+.ui.menu:not(.secondary):not(.text):not(.tabular):not(.borderless)>.container>.item:not(.right):not(.borderless):first-child {
+  border-left: unset !important;
+} */
+
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/* .text-blur {
+  text-shadow: 0 0 4px black;
+  color: transparent;
+} */
+table.text-blur tbody  {
+  text-shadow: 0 0 6px black;
+  color: transparent;
+}
+.hide{
+  display: none;
+}
+
+input.invisiblse {
+  background-color:rgba(0, 0, 0, 0);
+   
+  border: none;
+  outline:none;
+  height:30px;
+  transition:height 1s;
+  -webkit-transition:height 1s;
+}
