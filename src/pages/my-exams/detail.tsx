@@ -169,9 +169,16 @@ function EditDetails({ exam: initialExam }: { exam: Exam }) {
           />
 
           <Form onSubmit={onSubmit} className="attached fluid segment">
-            <Grid columns="2">
+            <Grid columns="2" stackable>
               <Grid.Row>
-                <Grid.Column width={12}>
+                <Grid.Column textAlign="center" width="3">
+                  <SelectThumbnailModal
+                    name="img"
+                    value={exam.img}
+                    onChange={handleExamChange}
+                  />
+                </Grid.Column>
+                <Grid.Column width={13}>
                   <Form.Input
                     fluid
                     label="Title"
@@ -198,13 +205,6 @@ function EditDetails({ exam: initialExam }: { exam: Exam }) {
                     required
                     name="description"
                     value={exam.description}
-                    onChange={handleExamChange}
-                  />
-                </Grid.Column>
-                <Grid.Column textAlign="center" width="3">
-                  <SelectThumbnailModal
-                    name="img"
-                    value={exam.img}
                     onChange={handleExamChange}
                   />
                 </Grid.Column>

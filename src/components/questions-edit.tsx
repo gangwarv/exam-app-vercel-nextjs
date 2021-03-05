@@ -16,10 +16,17 @@ interface Props {
 }
 
 export default function QuestionsEdit({ questions, setQuestions }: Props) {
-  function removeOption(editIndex: number) {
+  function removeOption(qIndex: number) {
+    // removing last element from options array
+    // removing removed element's index from answeres array if present.
+    // return if options array have 2 or less than 2 options. 
     setQuestions((qs) =>
       qs.map((q, i) => {
-        if (i !== editIndex) return q;
+        if (i !== qIndex ) return q;
+        if(q.opt_set.length <= 2){
+          console.log('can\'t have less than 2 options for objective question');
+          return q;
+        }
         let newAns = {
           ...q,
           ans_set: q.ans_set.filter((x) => x != q.opt_set.length - 1),
@@ -29,10 +36,11 @@ export default function QuestionsEdit({ questions, setQuestions }: Props) {
       })
     );
   }
-  function addOption(editIndex: number) {
+  function addOption(qIndex: number) {
+    // appending one more option in options array
     setQuestions((qs) =>
       qs.map((q, i) => {
-        if (i !== editIndex) return q;
+        if (i !== qIndex) return q;
         return { ...q, opt_set: [...q.opt_set, ""] };
       })
     );
@@ -46,6 +54,9 @@ export default function QuestionsEdit({ questions, setQuestions }: Props) {
         if (key === "type" && value === "Objective") {
           q.opt_set = q.opt_set || ["", ""];
           q.ans_set = q.ans_set || [];
+        }
+        else{
+          q.ans_text = q.ans_text || "";
         }
         return q;
       })
@@ -108,7 +119,7 @@ export default function QuestionsEdit({ questions, setQuestions }: Props) {
           <Table.HeaderCell>Question Text</Table.HeaderCell>
           <Table.HeaderCell collapsing>Question Type</Table.HeaderCell>
           <Table.HeaderCell>Max Options</Table.HeaderCell>
-          <Table.HeaderCell>Options</Table.HeaderCell>
+          <Table.HeaderCell>Options/Answere</Table.HeaderCell>
           <Table.HeaderCell collapsing></Table.HeaderCell>
         </Table.Row>
       </Table.Header>

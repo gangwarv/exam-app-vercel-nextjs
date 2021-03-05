@@ -1,6 +1,6 @@
 import { db } from '../../src/store'
 const sleep = (ms, data) => new Promise((res) => {
-  setTimeout(() => res(data), ms)
+  setTimeout(() => res(data), 0)
 })
 export const resolvers = {
   Query: {
