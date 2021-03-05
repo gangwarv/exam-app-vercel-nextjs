@@ -137,18 +137,18 @@ function FieldArray({
   );
 }
 
-const UPSERT_EXAM = gql`
-  mutation UpsertExam(){
+// const UPSERT_EXAM = gql`
+//   mutation UpsertExam(){
 
-  }
-`;
+//   }
+// `;
 function EditDetails({ exam: initialExam }: { exam: Exam }) {
   const [exam, setExam] = useState(initialExam);
-  const {} = useMutation(UPSERT_EXAM, {
-    variables: {
-      input: exam,
-    },
-  });
+  // const {} = useMutation(UPSERT_EXAM, {
+  //   variables: {
+  //     input: exam,
+  //   },
+  // });
 
   function handleExamChange({ name, value }: any) {
     setExam({ ...exam, [name]: value });
