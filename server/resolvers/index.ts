@@ -6,11 +6,11 @@ export const resolvers = {
   Query: {
     exams: async (_, args, context, info) => {
       // console.log('operation', await context.getAuth())
-      return sleep(2000, db.exams)
+      return sleep(1000, db.exams)
     },
     exam: async (_, { id }) => {
       // console.log('operation', await context.getAuth())
-      return sleep(2000, db.exams.find(x => x.exam_id == id))
+      return sleep(1, db.exams.find(x => x.exam_id == id))
     },
     users: () => {
       return sleep(1000, db.users);
