@@ -33,5 +33,8 @@ export const typeDefs = gql`
     exam(id: String): Exam
     users: [User]
     user(id: String): User
+    images: [String!]!
   }
+
+
 `;

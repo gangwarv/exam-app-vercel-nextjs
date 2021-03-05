@@ -8,7 +8,7 @@ export interface User {
 export interface Question {
     ques_id: string;
     text: string;
-    type: 'Objective' | 'Subjective';
+    type: 'Objective' | 'Subjective' | "";
     opt_set?: Array<string>; //array set
     ans_set?: Array<number>;
     ans_text?: string;

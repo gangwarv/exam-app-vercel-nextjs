@@ -23,6 +23,7 @@ import {
   Icon,
   Menu,
   Message,
+  Search,
   Segment,
   Sidebar,
 } from "semantic-ui-react";
@@ -42,6 +43,7 @@ export default function UniversalLayout({
   const [isMobile, setIsMobile] = useState(false);
   const {
     isLoggedIn,
+    appName,
     logIn,
     logOut,
     logo: { src },
@@ -106,7 +108,6 @@ export default function UniversalLayout({
               style={{ padding: isMobile ? undefined : "0em 5em" }}
               inverted
               borderless
-              secondary
               size="large"
             >
               {isMobile && (
@@ -114,51 +115,48 @@ export default function UniversalLayout({
                   <Icon size="large" name="sidebar" />
                 </Menu.Item>
               )}
-              <Menu.Item>
-                <img src={src} />
-                <span style={{ fontSize: "22px", color: "orange" }}>mfWCT</span>
-              </Menu.Item>
-
+              {!isMobile && (
+                <Menu.Item>
+                  <img src={src} />
+                  <span style={{ fontSize: "22px", color: "orange" }}>
+                    {appName}
+                  </span>
+                </Menu.Item>
+              )}
               {!isMobile &&
                 menus.map((m) => (
                   <Link key={m.name} href={m.path}>
-                    <Menu.Item
+                    <Menu.Item link href={m.path}
                       active={router.pathname == m.path}
                       name={m.name}
                     />
                   </Link>
-                ))}
+                ))
+                }
 
               <Menu.Menu position="right">
+                <Menu.Item style={{ paddingLeft: "0px", paddingRight: "0px" }}>
+                  <Search size="small" />
+                </Menu.Item>
                 <Menu.Item>
                   {isLoggedIn ? (
-                    <Button onClick={logOut} inverted as="a">
-                      Log out
+                    <Button onClick={logOut} icon="sign out" inverted as="a">
+                      {isMobile ? null : "Log Out"}
                     </Button>
                   ) : (
-                    <Button onClick={logIn} inverted as="a">
-                      Log in
+                    <Button
+                      onClick={logIn}
+                      circular
+                      icon="sign in"
+                      inverted
+                      as="a"
+                    >
+                      {isMobile ? null : "Log In"}
                     </Button>
                   )}
                 </Menu.Item>
               </Menu.Menu>
             </Menu>
-            {/* <Message warning icon>
-              <Icon name="stopwatch" />
-              <Message.Content>
-                <Message.Header>
-                  Your exam is going to start soon.
-                </Message.Header>
-                You can enter anytime by clicking on the button{" "}
-                <Link href="/">
-                  <a>"Start Now"</a>
-                </Link>
-                . Good luck!
-                <Button inverted color="brown" floated="right">
-                  Start Now
-                </Button>
-              </Message.Content>
-            </Message> */}
             {banner}
           </Segment>
           <Container>

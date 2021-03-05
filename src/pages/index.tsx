@@ -1,34 +1,18 @@
-import Head from "next/head";
 import {
   Button,
   Container,
-  Dropdown,
   Grid,
   Header,
-  Icon,
   Image,
   Segment,
 } from "semantic-ui-react";
-import Layout from "../components/layout";
-import { useQuery, gql } from "@apollo/client";
+import Layout from "../components/layout"; 
+import AuthContext from '../context/auth.context';
+import { useContext } from "react";
 
-const GET_CAP = gql`
-  query GetCapsules {
-    getExams {
-      id
-      title
-      creator {
-        id
-        name
-      }
-    }
-  }
-`;
 
-export default function Home() {
-  const {loading, error, data} = useQuery(GET_CAP)
-  const AppName = "Light Cell";
-  console.log(data)
+export default function Home() { 
+  const { appName } = useContext(AuthContext)
   const banner = (
     <Segment
       style={{ padding: "1em 1em", minHeight: "200px" }}
@@ -38,12 +22,10 @@ export default function Home() {
       <Container>
         <div>
           <Header color="black" size="huge" inverted>
-            {AppName.toUpperCase()}
+            {appName.toUpperCase()}
           </Header>
           <Header color="black" inverted>
-            Ultimate Plateform for Beginners.
-            <br/>
-            {loading?'Loading...':'Done'}
+            Ultimate Plateform for Beginners. 
           </Header>
           <div>
             <Button size="large" inverted secondary>
@@ -60,15 +42,14 @@ export default function Home() {
         <Grid container stackable verticalAlign="middle">
           <Grid.Row>
             <Grid.Column textAlign="center">
-              <Header size="huge">WHAT IS {AppName.toUpperCase()}?</Header>
+              <Header size="huge">WHAT IS {appName.toUpperCase()}?</Header>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
             <Grid.Column textAlign="center">
               <Button secondary basic animated="vertical" size="huge">
                 <Button.Content visible>Watch the video</Button.Content>
-                <Button.Content hidden>
-                  {/* <Icon name="youtube"  /> */}
+                <Button.Content hidden> 
                   <i className="fa fa-youtube-play fa-lg" />
                 </Button.Content>
               </Button>

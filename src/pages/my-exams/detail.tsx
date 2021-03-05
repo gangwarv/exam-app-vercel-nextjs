@@ -1,4 +1,4 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import {
@@ -11,12 +11,12 @@ import {
   SemanticWIDTHS,
 } from "semantic-ui-react";
 import { Exam } from "../../../types";
-// import CsvEditor from "../../components/CsvEditor";
 import Layout from "../../components/layout";
 // import QuestionEditModal from "../../components/question-edit-modal";
 import QuestionsEdit from "../../components/questions-edit";
 import LoadingList from "../../components/loading/loading-list";
 import { Question } from "../../../types";
+import SelectThumbnailModal from "../../components/select-thumbnail-modal";
 
 const GET_EXAM = gql`
   query GetExam($id: String) {
@@ -69,11 +69,18 @@ export default function ExamDetailPage() {
     );
   }
 
-  const exam = data.exam;
+  const exam =
+    data.exam ??
+    ({
+      exam_id: "-1",
+      img: "https://via.placeholder.com/320x240.png?text=title",
+      questions: [],
+      topics: [""],
+    } as Exam);
   return (
     <Layout>
-      <Header as="h1">{exam.title}</Header>
-      <EditDetails exam={data.exam} />
+      <Header as="h1">Add/Edit Page</Header>
+      <EditDetails exam={exam} />
     </Layout>
   );
 }
@@ -108,7 +115,7 @@ function FieldArray({
               action={{
                 icon: isFirst ? "plus" : "minus",
                 type: "button",
-                onClick: (e) => {
+                onClick: () => {
                   if (isFirst)
                     setItemArray([...itemArray, "item " + itemArray.length]);
                   else {
@@ -130,62 +137,84 @@ function FieldArray({
   );
 }
 
-function EditDetails({ exam: initialExam }: { exam: Exam }) {
-  // const [] = useState(false);
-  const [exam, setExam] = useState(initialExam);
+const UPSERT_EXAM = gql`
+  mutation UpsertExam(){
 
-  function handleExamChange(e: any, { name, value }: any) {
-    console.log({ name, value });
+  }
+`;
+function EditDetails({ exam: initialExam }: { exam: Exam }) {
+  const [exam, setExam] = useState(initialExam);
+  const {} = useMutation(UPSERT_EXAM, {
+    variables: {
+      input: exam,
+    },
+  });
+
+  function handleExamChange({ name, value }: any) {
     setExam({ ...exam, [name]: value });
+  }
+
+  function onSubmit(e, data) {
+    console.log("Submitted:", data);
   }
   return (
     <Grid>
       <Grid.Row>
         <Grid.Column>
           <Message
+            warning
             attached
-            header="Welcome to our site!"
-            content="Fill out the form below to sign-up for a new account"
+            header="Note:"
+            content="Only red marked fields (marked with red * sign) are mandatory."
           />
-          <Form
-            onSubmit={() => console.log("Submitted:", exam)}
-            className="attached fluid segment"
-          >
-            <Form.Group widths="equal">
-              <Form.Input
-                fluid
-                label="Title"
-                placeholder="Title"
-                type="text"
-                required
-                value={exam.title}
-                name="title"
-                onChange={handleExamChange}
-              />
-              <Form.Input
-                fluid
-                label="Sub Title"
-                placeholder="Sub-Title"
-                type="text"
-                required
-                name="sub_title"
-                value={exam.sub_title}
-                onChange={handleExamChange}
-              />
-            </Form.Group>
-            <Form.TextArea
-              label="Description"
-              placeholder="Description"
-              required
-              name="description"
-              value={exam.description}
-              onChange={handleExamChange}
-            />
+
+          <Form onSubmit={onSubmit} className="attached fluid segment">
+            <Grid columns="2">
+              <Grid.Row>
+                <Grid.Column width={12}>
+                  <Form.Input
+                    fluid
+                    label="Title"
+                    placeholder="Title"
+                    type="text"
+                    required
+                    value={exam.title}
+                    name="title"
+                    onChange={handleExamChange}
+                  />
+                  <Form.Input
+                    fluid
+                    label="Sub Title"
+                    placeholder="Sub-Title"
+                    type="text"
+                    required
+                    name="sub_title"
+                    value={exam.sub_title}
+                    onChange={handleExamChange}
+                  />
+                  <Form.TextArea
+                    label="Description"
+                    placeholder="Description"
+                    required
+                    name="description"
+                    value={exam.description}
+                    onChange={handleExamChange}
+                  />
+                </Grid.Column>
+                <Grid.Column textAlign="center" width="3">
+                  <SelectThumbnailModal
+                    name="img"
+                    value={exam.img}
+                    onChange={handleExamChange}
+                  />
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
 
             <FieldArray
               itemArray={exam.topics}
               setItemArray={(tops) => {
-                handleExamChange(null, { name: "topics", value: tops });
+                handleExamChange({ name: "topics", value: tops });
               }}
               width="16"
               label="Topics Included"
@@ -208,7 +237,6 @@ function EditDetails({ exam: initialExam }: { exam: Exam }) {
                 onChange={handleExamChange}
               />
             </Form.Group>
-            {/* <Form.Input label="Password" type="password" /> */}
             <QuestionsEdit
               questions={exam.questions}
               setQuestions={(cb: (d: Array<Question>) => Array<Question>) => {
@@ -216,90 +244,11 @@ function EditDetails({ exam: initialExam }: { exam: Exam }) {
                 setExam((ex) => ({ ...ex, questions: updatedQuestions }));
               }}
             />
-            {/* <Table compact className={showQues ? "" : "text-blur"}>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell colSpan="3">
-                    <Header floated="left">Questions Set</Header>
-                    <Checkbox
-                      checked={showQues}
-                      onChange={() => setShowQues(!showQues)}
-                      toggle
-                      label={showQues ? "Hide Questions" : "Show Questions"}
-                    />
-                  </Table.HeaderCell>
-                  <Table.HeaderCell colSpan="2">
-                    <Button.Group floated="right">
-                      <Button type="button" color="blue">
-                        Import CSV
-                      </Button>
-                      <Button.Or />
-                      <Button type="button" color="grey">
-                        Export CSV
-                      </Button>
-                    </Button.Group>
-                  </Table.HeaderCell>
-                </Table.Row>
-                <Table.Row>
-                  <Table.HeaderCell></Table.HeaderCell>
-                  <Table.HeaderCell>Question Type</Table.HeaderCell>
-                  <Table.HeaderCell>Question</Table.HeaderCell>
-                  <Table.HeaderCell>Answere(s)</Table.HeaderCell>
-                  <Table.HeaderCell>
-                    <QuestionEditModal
-                      question={null}
-                      trigger={
-                        <Button type="button" icon>
-                          <Icon name="plus" />
-                        </Button>
-                      }
-                    />
-                  </Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-              <Table.Body>
-                {exam.questions.map((q, i) => (
-                  <Table.Row key={i}>
-                    <Table.Cell collapsing>{i + 1}</Table.Cell>
-                    <Table.Cell collapsing title={q.type}>
-                      <Icon
-                        color="blue"
-                        name={q.type === "Subjective" ? "write" : "check"}
-                      />
-                    </Table.Cell>
-                    <Table.Cell collapsing>
-                      {q.text}
-                      <ol type="a">
-                        {q.opt_set?.map((a) => (
-                          <li key={a}>{a}</li>
-                        ))}
-                      </ol>
-                    </Table.Cell>
-                    <Table.Cell>
-                      {!q.ans_set ? null : q.ans_set.join(", ")}
-                    </Table.Cell>
-                    <Table.Cell collapsing>
-                      <QuestionEditModal
-                        question={null}
-                        trigger={
-                          <Button type="button" icon>
-                            <Icon name="edit" />
-                          </Button>
-                        }
-                      />
-                    </Table.Cell>
-                  </Table.Row>
-                ))}
-              </Table.Body>
-            </Table> */}
 
             <Form.Checkbox inline label="I agree to the terms and conditions" />
             <Button color="blue">Submit</Button>
           </Form>
         </Grid.Column>
-      </Grid.Row>
-      <Grid.Row>
-        <Grid.Column></Grid.Column>
       </Grid.Row>
     </Grid>
   );

@@ -20,7 +20,7 @@ export interface User {
 }
 
 export const defaultValue: AuthContextModel = {
-    appName: 'WCT-App',
+    appName: 'TDD-App',
     isLoggedIn: false,
     logo: { src: "/icons/firefox/firefox-general-64-64.png" },
     user: {

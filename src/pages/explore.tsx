@@ -8,6 +8,8 @@ import {
   Card,
   Button,
   Placeholder,
+  Message,
+  Label,
 } from "semantic-ui-react";
 import { Exam } from "../../types";
 import Layout from "../components/layout";
@@ -51,22 +53,41 @@ export default function Explore() {
 
   return (
     <Layout>
+      <Message>
+        <Message.Header>Changes in Service</Message.Header>
+        <p>
+          We updated our privacy policy here to better service our customers. We
+          recommend reviewing the changes.
+        </p>
+      </Message>
       <Header as="h1">Available Exams</Header>
-
+      <Label.Group size="large">
+        {Array(20)
+          .fill(0)
+          .map((x, i) => (
+            <Link key={i} href="/">
+              <Label as="a" onClick={console.log}>
+                {i} Witty
+                {/* {i} Witty */}
+              </Label>
+            </Link>
+          ))}
+      </Label.Group>
       <Card.Group itemsPerRow={4} doubling>
         {loading ? (
           <LoadingCards />
         ) : (
           exams.map((x) => (
-            <Link href={"/exams?id="+x.exam_id} key={x.exam_id}>
-            <Card link>
-              <Image size="huge" src={x.img} />
-              <Card.Content>
-                <Card.Header>{x.title}</Card.Header>
-                <Card.Meta>Created By: {x.creator.name}</Card.Meta>
-                <Card.Description>{x.sub_title}</Card.Description>
-              </Card.Content>
-            </Card></Link>
+            <Link href={"/exams?id=" + x.exam_id} key={x.exam_id}>
+              <Card link>
+                <Image size="huge" src={x.img} />
+                <Card.Content>
+                  <Card.Header>{x.title}</Card.Header>
+                  <Card.Meta>Created By: {x.creator.name}</Card.Meta>
+                  <Card.Description>{x.sub_title}</Card.Description>
+                </Card.Content>
+              </Card>
+            </Link>
           ))
         )}
       </Card.Group>

@@ -12,7 +12,7 @@ export default function Header() {
       />
       <meta name="description" content="Description" />
       <meta name="keywords" content="Keywords" />
-      <title>Next.js PWA Example</title>
+      <title>Example</title>
 
       <link rel="manifest" href="/manifest.json" />
       <link rel="shortcut icon" href="favicon.ico" type="image/png" />
