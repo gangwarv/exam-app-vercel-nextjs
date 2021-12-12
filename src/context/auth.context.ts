@@ -20,7 +20,7 @@ export interface User {
 }
 
 export const defaultValue: AuthContextModel = {
-    appName: 'TDD-App',
+    appName: 'TDD-APP',
     isLoggedIn: false,
     logo: { src: "/icons/firefox/firefox-general-64-64.png" },
     user: {
