@@ -35,6 +35,7 @@ export default function Footer() {
                   help re-engage users.
                 </p>
                 <div>Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+                <div>Made by <a href="mailto: gangwar_v@hotmail.com" title="gangwar_v@hotmail.com">Vishal</a> with 💕</div>
               </Grid.Column>
             </Grid.Row>
           </Grid>
