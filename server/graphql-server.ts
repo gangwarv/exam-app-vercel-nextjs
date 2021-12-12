@@ -1,5 +1,5 @@
 const cors = require('micro-cors')();
-const { send } = require('micro');
+// const { send } = require('micro');
 import { ApolloServer, AuthenticationError } from "apollo-server-micro";
 import { typeDefs } from "./schemas";
 import { resolvers } from "./resolvers";
@@ -24,7 +24,9 @@ const apolloServer = new ApolloServer({
 });
 
 // export default apolloServer;
-module.exports = apolloServer.start().then(() => {
-  const handler = apolloServer.createHandler();
-  return cors((req, res) => req.method === 'OPTIONS' ? send(res, 200, 'ok') : handler(req, res))
-});
+// module.exports = apolloServer.start().then(() => {
+//   const handler = apolloServer.createHandler();
+//   return cors((req, res) => req.method === 'OPTIONS' ? send(res, 200, 'ok') : handler(req, res))
+// });
+const handler = apolloServer.createHandler(); // highlight-line
+export default cors((req, res) => req.method === 'OPTIONS' ? res.end() : handler(req, res)) // highlight-line
