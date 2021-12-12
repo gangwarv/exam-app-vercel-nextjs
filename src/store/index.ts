@@ -85,6 +85,13 @@ class Database implements IDatabase {
             name: 'Manvi'
         }];
     }
+
+    get images(){
+        return  ["pexels-cvsv-197293.jpg", "pexels-george-becker-374918.jpg", "pexels-jess-bailey-designs-743986.jpg", "pexels-manuel-geissinger-325223.jpg", "pexels-nastyasensei-335393.jpg", "pexels-nothing-ahead-4440715.jpg", "pexels-pixabay-208674.jpg", "pexels-pixabay-256417.jpg", "pexels-pixabay-33153.jpg", "pexels-pixabay-373543.jpg", "pexels-pixabay-53621.jpg", "pexels-pixabay-60582.jpg", "pexels-tima-miroshnichenko-6615076.jpg"].map(x =>
+             "https://exam-next-app-wyawd.mongodbstitch.com/img/"
+            //"http://localhost/uploads/"
+            + x)
+    }
 }
 
 

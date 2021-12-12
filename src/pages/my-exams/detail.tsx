@@ -17,6 +17,7 @@ import QuestionsEdit from "../../components/questions-edit";
 import LoadingList from "../../components/loading/loading-list";
 import { Question } from "../../../types";
 import SelectThumbnailModal from "../../components/select-thumbnail-modal";
+import { db } from "../../store";
 
 const GET_EXAM = gql`
   query GetExam($id: String) {
@@ -54,13 +55,13 @@ export default function ExamDetailPage() {
       id,
     },
   });
-  if (error) {
-    return (
-      <Layout>
-        <h1>Error</h1>
-      </Layout>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <Layout>
+  //       <h1>Error</h1>
+  //     </Layout>
+  //   );
+  // }
   if (loading) {
     return (
       <Layout>
@@ -70,13 +71,8 @@ export default function ExamDetailPage() {
   }
 
   const exam =
-    data.exam ??
-    ({
-      exam_id: "-1",
-      img: "https://via.placeholder.com/320x240.png?text=title",
-      questions: [],
-      topics: [""],
-    } as Exam);
+    data?.exam ??
+    (db.exams.find(x => x.exam_id == id)as Exam);
   return (
     <Layout>
       <Header as="h1">Add/Edit Page</Header>

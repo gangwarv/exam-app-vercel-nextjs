@@ -1,6 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import React, { useEffect } from "react";
 import { Button, Card, Form, Header, Image, Modal } from "semantic-ui-react";
+import { db } from "../store";
 import LoadingCards from "./loading/loading-cards";
 
 interface Props {
@@ -25,6 +26,7 @@ function SelectThumbnailModal({
   const { loading, data, error } = useQuery<{ images: Array<string> }>(
     GET_IMAGES
   );
+  const images=db.images;
   useEffect(() => {
     // setOpen(true);
   }, []);
@@ -34,7 +36,8 @@ function SelectThumbnailModal({
   };
   const onSubmit = () => {
     setOpen(false);
-    onSelected(null, { name, value: data.images[selectedIndex] });
+    //onSelected(null, { name, value: data.images[selectedIndex] });
+    onSelected(null, { name, value: images[selectedIndex] });
   };
   return (
     <Card>
@@ -65,7 +68,7 @@ function SelectThumbnailModal({
             <Card.Group itemsPerRow={4} doubling>
               {loading && <LoadingCards />}
               {!loading &&
-                data.images.map((src, i) => (
+                images.map((src, i) => (
                   <Card key={i} onClick={() => handleChange(i)}>
                     <Image
                       src={src}

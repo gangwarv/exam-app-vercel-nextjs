@@ -20,6 +20,7 @@ import {
 import { Exam } from "../../../types";
 import Layout from "../../components/layout";
 import LoadingList from "../../components/loading/loading-list";
+import { db } from "../../store";
 const GET_EXAM = gql`
   query GetExam($id: String) {
     exam(id: $id) {
@@ -59,7 +60,7 @@ export default function ExamPage() {
         <LoadingList />
       </Layout>
     );
-  const exam = data.exam;
+  const exam = data.exam?? db.exams.find(x => x.exam_id == id);
   return (
     <Layout
       banner={

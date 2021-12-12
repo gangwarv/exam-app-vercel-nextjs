@@ -19,6 +19,7 @@ import {
 import { Exam } from "../../../types";
 import Layout from "../../components/layout";
 import LoadingList from "../../components/loading/loading-list";
+import { db } from "../../store";
 const GET_EXAM = gql`
   query GetExam($id: String) {
     exam(id: $id) {
@@ -57,7 +58,7 @@ export default function ViewExamPage() {
         <LoadingList />
       </Layout>
     );
-  const exam = data?.exam || ({} as Exam);
+  const exam = data?.exam || (db.exams.find(x => x.exam_id == id) as Exam);
   return (
     <Layout
       banner={ 

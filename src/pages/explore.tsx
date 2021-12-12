@@ -14,6 +14,7 @@ import {
 import { Exam } from "../../types";
 import Layout from "../components/layout";
 import LoadingCards from "../components/loading/loading-cards";
+import { db } from "../store";
 
 const GET_EXAMS = gql`
   query {
@@ -49,6 +50,7 @@ export default function Explore() {
           (x) => x.title.toLocaleLowerCase().indexOf(searchText) > -1
         )
       );
+      else setExams(db.exams)
   }, [data, searchText]);
 
   return (
